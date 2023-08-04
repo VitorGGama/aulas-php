@@ -61,13 +61,50 @@
     <p>Maior valor: <?=max($valores)?></p>
     <p>Arredondamento: <?=round($valorQualquer)?></p>
 
-
-    
-
-
-
+    <hr>
    
     <h2>Arrays</h2>
+    <h3>implode()</h3>
+    <?php
+    /*função que transforma array em string*/
+    $bandas = ["titãs", "ira!", "legião"];
+    $textoBandas = implode(" - ", $bandas);
+    ?>
+
+    <pre><?=var_dump($bandas)?></pre>
+    <pre><?=var_dump($textoBandas)?></pre>
+
+    <hr>
+    <h3>extract</h3>
+
+    <?php
+    /*função que extrai chaves associativas
+    para variaveis */ 
+    
+    $aluno = [
+        "id" => 1,
+        "nome" => "chave do 8",
+        "idade" => 25
+    ];
+    extract($aluno);
+    ?>
+
+    <ul>
+        <li>id: <?=$id?></li>
+        <li>nome: <?=$nome?></li>
+        <li>idade: <?=$idade?></li>
+    </ul>
+    <hr>
+
+    <h3>array_sum()</h3>
+    <?php
+    /*função para somar os valores
+    de um array */ 
+    
+    $total = array_sum($valores);
+    ?>
+    <p>Soma dos valores: <?=$total?></p>
+
     
     
     <h2>Filtros</h2>
