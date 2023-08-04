@@ -26,8 +26,8 @@
     /*função que permite substituição
     de strings/caracteres.*/ 
     $fraseFeia = "<p>Fulano é um bobão e xarope</p>";
-    $frasebonita = str_replace(["xarope","bobão"],
-    "*****",
+    $frasebonita = str_replace(["xarope","bobão "],
+    "***** ou 🤬",
     $fraseFeia
     );
     ?>
