@@ -20,9 +20,26 @@
     <pre> <?=var_dump($nome)?></pre>
     <pre> <?=var_dump($nomeSemEspaço)?></pre>
 
-    
+    <hr>
+    <h3>str_replace</h3>
+    <?php 
+    /*função que permite substituição
+    de strings/caracteres.*/ 
+    $fraseFeia = "<p>Fulano é um bobão e xarope</p>";
+    $frasebonita = str_replace(["xarope","bobão"],
+    "*****",
+    $fraseFeia
+    );
+    ?>
+
+    <p><?=$fraseFeia?></p>
+    <p><?=$frasebonita?></p>
+
+
+
 
     <h2>Numéricas</h2>
+
    
     <h2>Arrays</h2>
     
