@@ -28,11 +28,14 @@
         return "aprovado";
     }    
 
-    $media = calcularMedia(8, 10);
+    $media = calcularMedia(2, 10);
      ?>
 
     <p>Média: <?=$media?></p>
      <p>Situação: <span class="<?=situacaoAluno($media)?>"> <?=situacaoAluno($media)?></span></p>
+
+
+
 
      
 
