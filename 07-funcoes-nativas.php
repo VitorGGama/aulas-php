@@ -139,6 +139,23 @@
     </pre>
     
     <h3>Sanitização</h3>
+    <?php
+    $ataque = "<script>
+        document.body.innerHTML = '<h1>Sou ráqui!! mwhaha : ( </h1>'
+        </script>";
+
+        echo $ataque;
+
+        //Execução sem sanitização (script é válido)
+        //echo ataque;
+
+        $ataqueSanitizado = filter_var($ataque, FILTER_SANITIZE_SPECIAL_CHARS );
+
+        //Execução com sanitização (script é anulado)
+        echo $ataqueSanitizado;
+
+
+    ?>
 
 
     <hr>
