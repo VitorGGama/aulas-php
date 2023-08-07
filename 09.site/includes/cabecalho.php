@@ -15,7 +15,10 @@
             <a href="index.php">Home</a>
             <a href="cursos.php">Treinamento</a>
             <a href="duvidas.php">Dúvidas</a>
+            <a href="contato.php">Contato</a>
         </nav>
     </header>
 
     <main>
+
+    
