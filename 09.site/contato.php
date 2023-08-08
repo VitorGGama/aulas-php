@@ -1,4 +1,6 @@
-<?php require "includes/cabecalho.php"?>
+<?php 
+$titulo = "contato";
+require "includes/cabecalho.php"?>
 
 
     <h1>Contato</h1>

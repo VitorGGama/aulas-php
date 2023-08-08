@@ -1,4 +1,6 @@
-<?php require "includes/cabecalho.php"?>
+<?php 
+$titulo = "duvidas";
+require "includes/cabecalho.php"?>
 
         <h2>Página de dúvidas</h2>
         <p>Principais dúvidas</p>
