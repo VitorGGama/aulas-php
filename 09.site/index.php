@@ -1,5 +1,5 @@
 <?php 
-$titulo = "index";
+$titulo = "Página inicial";
 require "includes/cabecalho.php" ?>
 
 <h2>Bem vindo ao site exemplo</h2>
