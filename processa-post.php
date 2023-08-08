@@ -14,6 +14,14 @@
 
 
     <?php
+    /*Se os campos nome e email estão vazios*/ 
+    if( empty ($_POST["nome"]) || empty($_POST["email"]) ){?>
+        <p>preencha nome e e-mail</p>
+        <p><a href="10-formulario.html"> Voltar</a></p>
+        <?php
+    } else {
+
+
     $nome = $_POST["nome"];
     $email = $_POST["email"];
     $mensagem = $_POST["mensagem"];
@@ -26,6 +34,9 @@
         <li>Mensagem: </li>
         
     </ul>
+    <?php
+    }
+    ?>
 
 
 
