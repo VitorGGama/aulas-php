@@ -23,24 +23,31 @@
 
     <?php
     } else {
+
+        
         // Se os campos não estiverem vazios, pega os valores do formulário
         
         // Pega o valor do campo 'nome' do formulário e atribui à variável $nome
-        $nome = $_POST["nome"];
+        $nome = filter_input(INPUT_POST, "nome", FILTER_SANITIZE_SPECIAL_CHARS);
         
         // Pega o valor do campo 'email' do formulário e atribui à variável $email
-        $email = $_POST["email"];
+        $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
         
         // Pega o valor do campo 'mensagem' do formulário e atribui à variável $mensagem
-        $mensagem = $_POST["mensagem"];
+        $mensagem = filter_input(INPUT_POST, "mensagem", FILTER_SANITIZE_SPECIAL_CHARS);
         
         // Verifica se o campo 'idade' foi preenchido no formulário
         // Se preenchido, atribui o valor à variável $idade, senão atribui uma string vazia
-        $idade = isset($_POST["idade"]) ? $_POST["idade"] : "";
+        $idade = filter_input(INPUT_POST, "idade", FILTER_SANITIZE_NUMBER_INT);
         
         // Verifica se o campo 'interesses' foi preenchido no formulário
         // Se preenchido, atribui os valores a um array na variável $interesses, senão atribui um array vazio
-        $interesses = isset($_POST["interesses"]) ? $_POST["interesses"] : array();
+        
+        //$interesses = isset($_POST["interesses"]) ? $_POST["interesses"] : array();
+        $interesses = filter_var_array(
+            $_POST["interesses"] ?? [],
+            FILTER_SANITIZE_SPECIAL_CHARS
+        );
 
         // Define uma variável para determinar se a mensagem deve ser mostrada
         // A mensagem deve ser mostrada se o campo 'mensagem' não estiver vazio
@@ -51,10 +58,25 @@
     <ul>
         <li>Nome: <?= $nome ?></li>
         <li>E-mail: <?= $email ?></li>
-        <li>Idade: <?= $idade ?></li>
+        <li>Idade: <?= $idade ?></li>  
+        
+        <?php
+        if ( !empty($interesses) ){        
+        ?>
+        
         <li>Interesses: <?= implode(", ", $interesses) ?></li>
+        
+
+        <li>Interesses: 
+            <ul>
+                <?php foreach( $interesses as $interesses ){ ?>
+                <li><?=$interesses?></li>
+                <?php  } ?>
+            </ul>
+        </li>
 
         <?php
+        }
         // Verifica se a mensagem deve ser mostrada e exibe se necessário
         if ($mostrarMensagem) {
         ?>
