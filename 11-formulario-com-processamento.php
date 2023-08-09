@@ -32,14 +32,14 @@
     <form action="" method="post">
         <p>
             <label for="nome">Nome</label>
-            <input  required ="text" name="nome" id="nome">
+            <input  required = "text" name="nome" id="nome">
         </p>
 
         <p>
             <label for="email">E-mail</label>
             <input required ="email" name="email" id="email">
         </p>
-        <!--Importante : coloque o name no botão de envio  -->
+        <!--Importante : coloque o nome no botão de envio  -->
         <button type="submit" name="enviar" id="enviar">Enviar</button>
     </form>
 
