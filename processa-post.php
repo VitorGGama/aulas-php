@@ -3,92 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Processo POST</title>
+    <title>Cadastro de Produtos</title>
 </head>
 <body>
-    <h1>Exemplo usando POST</h1>
+    <h1>Cadastro de Produtos</h1>
 
-    <hr>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <p>
+            <label for="nome">Nome do Produto:</label>
+            <input type="text" name="nome" id="nome" required>
+        </p>
 
-    <p>Receber e processar dados via <b>POST</b></p>
+        <p>
+            <label for="fabricante">Fabricante:</label>
+            <select name="fabricante" id="fabricante">
+                <?php
+                $fabricantes = array("Fabricante 1", "Fabricante 2", "Fabricante 3", "Fabricante 4");
+                foreach ($fabricantes as $fabricante) {
+                    echo "<option value='" . htmlspecialchars($fabricante) . "'>$fabricante</option>";
+                }
+                ?>
+            </select>
+        </p>
 
-    <?php
-    // Verifica se os campos nome e email estão vazios
-    if (empty($_POST["nome"]) || empty($_POST["email"])) {
-        // Se estiverem vazios, exibe uma mensagem de erro
-    ?>
-        
-    <p>Preencha nome e e-mail</p>
-    <p><a href="10-formulario.html">Voltar</a></p>
+        <p>
+            <label for="preco">Preço:</label>
+            <input type="number" name="preco" id="preco" min="100" max="10000" step="0.01" required>
+        </p>
 
-    <?php
-    } else {
+        <p>
+            <label>Disponibilidade:</label>
+            <input type="radio" name="disponibilidade" value="sim" id="disponibilidade_sim" required>
+            <label for="disponibilidade_sim">Sim</label>
+            <input type="radio" name="disponibilidade" value="nao" id="disponibilidade_nao">
+            <label for="disponibilidade_nao">Não</label>
+        </p>
 
-        
-        // Se os campos não estiverem vazios, pega os valores do formulário
-        
-        // Pega o valor do campo 'nome' do formulário e atribui à variável $nome
-        $nome = filter_input(INPUT_POST, "nome", FILTER_SANITIZE_SPECIAL_CHARS);
-        
-        // Pega o valor do campo 'email' do formulário e atribui à variável $email
-        $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
-        
-        // Pega o valor do campo 'mensagem' do formulário e atribui à variável $mensagem
-        $mensagem = filter_input(INPUT_POST, "mensagem", FILTER_SANITIZE_SPECIAL_CHARS);
-        
-        // Verifica se o campo 'idade' foi preenchido no formulário
-        // Se preenchido, atribui o valor à variável $idade, senão atribui uma string vazia
-        $idade = filter_input(INPUT_POST, "idade", FILTER_SANITIZE_NUMBER_INT);
-        
-        // Verifica se o campo 'interesses' foi preenchido no formulário
-        // Se preenchido, atribui os valores a um array na variável $interesses, senão atribui um array vazio
-        
-        //$interesses = isset($_POST["interesses"]) ? $_POST["interesses"] : array();
-        $interesses = filter_var_array(
-            $_POST["interesses"] ?? [],
-            FILTER_SANITIZE_SPECIAL_CHARS
-        );
+        <p>
+            <label for="descricao">Descrição:</label>
+            <textarea name="descricao" id="descricao" rows="4"></textarea>
+        </p>
 
-        // Define uma variável para determinar se a mensagem deve ser mostrada
-        // A mensagem deve ser mostrada se o campo 'mensagem' não estiver vazio
-        $mostrarMensagem = !empty($mensagem);
-    ?>
-
-    <h2>Dados:</h2>
-    <ul>
-        <li>Nome: <?= $nome ?></li>
-        <li>E-mail: <?= $email ?></li>
-        <li>Idade: <?= $idade ?></li>  
-        
-        <?php
-        if ( !empty($interesses) ){        
-        ?>
-        
-        <li>Interesses: <?= implode(", ", $interesses) ?></li>
-        
-
-        <li>Interesses: 
-            <ul>
-                <?php foreach( $interesses as $interesses ){ ?>
-                <li><?=$interesses?></li>
-                <?php  } ?>
-            </ul>
-        </li>
-
-        <?php
-        }
-        // Verifica se a mensagem deve ser mostrada e exibe se necessário
-        if ($mostrarMensagem) {
-        ?>
-            <li>Mensagem: <?= $mensagem ?></li>
-        <?php
-        }
-        ?>
-    </ul>
+        <button type="submit" name="cadastrar">Cadastrar</button>
+    </form>
 
     <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $nome = $_POST["nome"];
+        $fabricante = $_POST["fabricante"];
+        $preco = $_POST["preco"];
+        $disponibilidade = $_POST["disponibilidade"];
+        $descricao = $_POST["descricao"];
+
+        echo "<h2>Dados do Produto Cadastrado:</h2>";
+        echo "<p><b>Nome:</b> " . htmlspecialchars($nome) . "</p>";
+        echo "<p><b>Fabricante:</b> " . htmlspecialchars($fabricante) . "</p>";
+        echo "<p><b>Preço:</b> R$ " . number_format($preco, 2, ',', '.') . "</p>";
+        echo "<p><b>Disponibilidade:</b> " . htmlspecialchars($disponibilidade) . "</p>";
+        echo "<p><b>Descrição:</b><br>" . nl2br(htmlspecialchars($descricao)) . "</p>";
     }
     ?>
 </body>
 </html>
-
