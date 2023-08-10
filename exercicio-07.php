@@ -6,7 +6,7 @@
     <title>Cadastro de Produtos</title>
 
     <style>
-        
+        h1 {color: red}
     </style>
 </head>
 <body>
