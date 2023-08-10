@@ -4,6 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Produtos</title>
+    <style>
+        /* Estilos para melhorar a aparência do formulário */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 
     
 </head>
@@ -12,11 +53,13 @@
 
     <?php
     if (isset($_POST["cadastrar"]) ) {
-        $nome = $_POST["nome"];
-        $fabricante = $_POST["fabricante"];
-        $preco = $_POST["preco"];
-        $disponibilidade = $_POST["disponibilidade"];
-        $descricao = $_POST["descricao"];
+        $nome = filter_input(INPUT_POST, "nome", FILTER_SANITIZE_SPECIAL_CHARS);
+        
+        $fabricante = filter_input(INPUT_POST, "fabricante", FILTER_SANITIZE_SPECIAL_CHARS);
+
+        $preco = filter_input(INPUT_POST, "preco", FILTER_VALIDATE_FLOAT);
+        $disponibilidade = filter_input(INPUT_POST, "disponibilidade", FILTER_SANITIZE_SPECIAL_CHARS);
+        $descricao = filter_input(INPUT_POST, "descricao", FILTER_SANITIZE_SPECIAL_CHARS);
 
     if( empty($_POST["nome"]) || empty($_POST["preco"]) ){
         ?>
@@ -29,12 +72,12 @@
     
         
     
-        <h2>Dados do Produto Cadastrado:</h2>
-        <p><b>Nome:</b> <?= htmlspecialchars($nome)?> </p>
-        <p><b>Fabricante:</b>  <?=htmlspecialchars($fabricante)?> </p>
+        <h2>Produto cadastrado com sucesso</h2>
+        <p><b>Nome:</b> <?= $nome?> </p>
+        <p><b>Fabricante:</b>  <?=($fabricante)?> </p>
         <p><b>Preço:</b> R$ <?= number_format($preco, 2, ',', '.')?></p>
-        <p><b>Disponibilidade:</b> <?= htmlspecialchars($disponibilidade)?> </p>
-        <p><b>Descrição:</b><br> <?=nl2br(htmlspecialchars($descricao)) ?></p>
+        <p><b>Disponibilidade:</b> <?= $disponibilidade?> </p>
+        <p><b>Descrição:</b><br> <?=$descricao ?></p>
 
        
 
@@ -46,7 +89,7 @@
 
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <p>
-            <label for="nome">Nome do Produto:</label>
+            <label for="nome">Produto:</label>
             <input type="text" name="nome" id="nome" required placeholder="digite o produto">
         </p>
 
@@ -54,7 +97,7 @@
             <label for="fabricante">Fabricante:</label>
             <select name="fabricante" id="fabricante">
                 <?php
-                $fabricantes = array(" ", "Ford", "Fabricante 2", "Fabricante 3", "Fabricante 4");
+                $fabricantes = array(" ", "Ford", "GM", "Volkswagem", "Honda");
                 foreach ($fabricantes as $fabricante) {
                     echo "<option value='" . htmlspecialchars($fabricante) . "'>$fabricante</option>";
                 }
