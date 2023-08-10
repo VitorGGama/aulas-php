@@ -20,11 +20,10 @@
         }
 
         label {
-            display: block;
             margin-bottom: 5px;
         }
 
-        input, textarea {
+        input:not(.disponibilidade), textarea {
             width: 100%;
             padding: 8px;
             margin-bottom: 10px;
@@ -112,9 +111,9 @@
 
         <p>
             <label>Disponibilidade:</label>
-            <input type="radio" name="disponibilidade" value="sim" id="disponibilidade_sim" required>
+            <input type="radio" class="disponibilidade" name="disponibilidade" value="sim" id="disponibilidade_sim" required>
             <label for="disponibilidade_sim">Sim</label>
-            <input type="radio" name="disponibilidade" value="nao" id="disponibilidade_nao">
+            <input type="radio" class="disponibilidade" name="disponibilidade" value="nao" id="disponibilidade_nao">
             <label for="disponibilidade_nao">Não</label>
         </p>
 
