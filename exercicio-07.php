@@ -17,8 +17,17 @@
         $preco = $_POST["preco"];
         $disponibilidade = $_POST["disponibilidade"];
         $descricao = $_POST["descricao"];
+
+    if( empty($_POST["nome"]) || empty($_POST["preco"]) ){
+        ?>
+        <p>Preencha o nome do produto e preço</p> 
+        <p><a href="javascript:history.back()">Voltar</a></p>
+        
+    <?php
+    }else {
     ?>
     
+        
     
         <h2>Dados do Produto Cadastrado:</h2>
         <p><b>Nome:</b> <?= htmlspecialchars($nome)?> </p>
@@ -27,9 +36,11 @@
         <p><b>Disponibilidade:</b> <?= htmlspecialchars($disponibilidade)?> </p>
         <p><b>Descrição:</b><br> <?=nl2br(htmlspecialchars($descricao)) ?></p>
 
+       
+
     
 
-    <?php 
+    <?php }
     }else {
     ?>
 
@@ -43,7 +54,7 @@
             <label for="fabricante">Fabricante:</label>
             <select name="fabricante" id="fabricante">
                 <?php
-                $fabricantes = array(" ", "Fabricante 1", "Fabricante 2", "Fabricante 3", "Fabricante 4");
+                $fabricantes = array(" ", "Ford", "Fabricante 2", "Fabricante 3", "Fabricante 4");
                 foreach ($fabricantes as $fabricante) {
                     echo "<option value='" . htmlspecialchars($fabricante) . "'>$fabricante</option>";
                 }
