@@ -10,20 +10,20 @@
             font-family: Arial, sans-serif;
         }
 
-        h1 {
+        h1, .cad {
             text-align: center;
         }
 
-        form {
+        form, .cad {
             max-width: 400px;
             margin: 0 auto;
         }
 
-        label {
+        label, .cad {
             margin-bottom: 5px;
         }
 
-        input:not(.disponibilidade), textarea {
+        input:not(.disponibilidade), textarea, .cad {
             width: 100%;
             padding: 8px;
             margin-bottom: 10px;
@@ -43,6 +43,7 @@
         button:hover {
             background-color: #0056b3;
         }
+        
     </style>
 
     
@@ -69,14 +70,16 @@
     }else {
     ?>
     
-        
+        <div class="cad">
+             <h2>Produto cadastrado com sucesso</h2>
+            <p><b>Nome:</b> <?= $nome?> </p>
+            <p><b>Fabricante:</b>  <?=($fabricante)?> </p>
+            <p><b>Preço:</b> R$ <?= number_format($preco, 2, ',', '.')?></p>
+            <p><b>Disponibilidade:</b> <?= $disponibilidade?> </p>
+            <p><b>Descrição:</b><br> <?=$descricao ?></p>
+        </div>
     
-        <h2>Produto cadastrado com sucesso</h2>
-        <p><b>Nome:</b> <?= $nome?> </p>
-        <p><b>Fabricante:</b>  <?=($fabricante)?> </p>
-        <p><b>Preço:</b> R$ <?= number_format($preco, 2, ',', '.')?></p>
-        <p><b>Disponibilidade:</b> <?= $disponibilidade?> </p>
-        <p><b>Descrição:</b><br> <?=$descricao ?></p>
+       
 
        
 
