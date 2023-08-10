@@ -3,65 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Produtos</title>
+    <title>Processamento POST</title>
 </head>
 <body>
-    <h1>Cadastro de Produtos</h1>
+    <h1>Exemplo usando POST</h1>
+    <hr>
+    <p>Receber e processar dados via <b>POST</b></p>
 
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <p>
-            <label for="nome">Nome do Produto:</label>
-            <input type="text" name="nome" id="nome" required>
-        </p>
+<?php
+/* Se os campos nome e e-mail estão vazios */
+if( empty($_POST["nome"]) || empty($_POST["email"]) ){
+?>
+    <p style="color:red">
+    Você deve preencher nome e e-mail!</p>
+    <p><a href="10-formulario.html">Voltar</a></p>
+<?php    
+} else {
+    //$nome = filter_var($_POST["nome"], FILTER_SANITIZE_SPECIAL_CHARS);
+    $nome = filter_input(INPUT_POST, "nome", FILTER_SANITIZE_SPECIAL_CHARS);
 
-        <p>
-            <label for="fabricante">Fabricante:</label>
-            <select name="fabricante" id="fabricante">
-                <?php
-                $fabricantes = array("Fabricante 1", "Fabricante 2", "Fabricante 3", "Fabricante 4");
-                foreach ($fabricantes as $fabricante) {
-                    echo "<option value='" . htmlspecialchars($fabricante) . "'>$fabricante</option>";
-                }
-                ?>
-            </select>
-        </p>
+    $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
+    
+    $idade = filter_input(INPUT_POST, "idade", FILTER_SANITIZE_NUMBER_INT);
+    
+    $mensagem = filter_input(INPUT_POST, "mensagem", FILTER_SANITIZE_SPECIAL_CHARS);
+    
+    // $interesses = $_POST["interesses"] ?? [];    
+    $interesses = filter_var_array( 
+        $_POST["interesses"] ?? [],  
+        FILTER_SANITIZE_SPECIAL_CHARS
+    );    
+?>
+    <h2>Dados:</h2>
+    <ul>
+        <li>Nome: <?=$nome?></li>
+        <li>E-mail: <?=$email?></li>
+        <li>Idade: <?=$idade?></li>
 
-        <p>
-            <label for="preco">Preço:</label>
-            <input type="number" name="preco" id="preco" min="100" max="10000" step="0.01" required>
-        </p>
+        <?php if( !empty($interesses) ){ ?>
+        
+        <!-- Versão 1:
+        Transformando o array $interesses em string -->
+        <li>Interesses: <?= implode(", ", $interesses) ?></li>
+        
+        <!-- Versão 2: acessando cada interesse
+        existente no array usando loop -->
+        <li>Interesses: 
+            <ul>
+                <?php foreach( $interesses as $interesse ) { ?>
+                <li> <?=$interesse?> </li>
+                <?php } ?>
+            </ul>
+        </li>
+        <?php } ?>
+        
+        <!-- Se a variável mensagem NÃO ESTIVER VAZIA,
+        mostre o <li> com a mensagem -->
+        <?php if( !empty($mensagem) ){ ?>
+        <li>Mensagem: <?=$mensagem?></li>
+        <?php } ?>
 
-        <p>
-            <label>Disponibilidade:</label>
-            <input type="radio" name="disponibilidade" value="sim" id="disponibilidade_sim" required>
-            <label for="disponibilidade_sim">Sim</label>
-            <input type="radio" name="disponibilidade" value="nao" id="disponibilidade_nao">
-            <label for="disponibilidade_nao">Não</label>
-        </p>
-
-        <p>
-            <label for="descricao">Descrição:</label>
-            <textarea name="descricao" id="descricao" rows="4"></textarea>
-        </p>
-
-        <button type="submit" name="cadastrar">Cadastrar</button>
-    </form>
-
-    <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $nome = $_POST["nome"];
-        $fabricante = $_POST["fabricante"];
-        $preco = $_POST["preco"];
-        $disponibilidade = $_POST["disponibilidade"];
-        $descricao = $_POST["descricao"];
-
-        echo "<h2>Dados do Produto Cadastrado:</h2>";
-        echo "<p><b>Nome:</b> " . htmlspecialchars($nome) . "</p>";
-        echo "<p><b>Fabricante:</b> " . htmlspecialchars($fabricante) . "</p>";
-        echo "<p><b>Preço:</b> R$ " . number_format($preco, 2, ',', '.') . "</p>";
-        echo "<p><b>Disponibilidade:</b> " . htmlspecialchars($disponibilidade) . "</p>";
-        echo "<p><b>Descrição:</b><br>" . nl2br(htmlspecialchars($descricao)) . "</p>";
-    }
-    ?>
+    </ul>
+<?php
+}
+?>
 </body>
 </html>
