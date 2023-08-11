@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Produtos</title>
     <style>
+        /* CSS simples mas bem feito */
+
         /* Estilos para melhorar a aparência do formulário */
         body {
             font-family: Arial, sans-serif;
@@ -57,13 +59,19 @@
         
         $fabricante = filter_input(INPUT_POST, "fabricante", FILTER_SANITIZE_SPECIAL_CHARS);
 
+        /* Aqui no $preco, o ideal é sanitizar em vez de validar.
+        Você deverá usar dois filtros: um para sanitização de float e outro para permitir dígitos/casas
+        decimais. */
         $preco = filter_input(INPUT_POST, "preco", FILTER_VALIDATE_FLOAT);
+        
         $disponibilidade = filter_input(INPUT_POST, "disponibilidade", FILTER_SANITIZE_SPECIAL_CHARS);
         $descricao = filter_input(INPUT_POST, "descricao", FILTER_SANITIZE_SPECIAL_CHARS);
 
     if( empty($_POST["nome"]) || empty($_POST["preco"]) ){
         ?>
         <p>Preencha o nome do produto e preço</p> 
+        <!-- Ideia da Valeska né? rs
+        Mas está certo, é possível sim com JS fazer a ação de voltar -->
         <p><a href="javascript:history.back()">Voltar</a></p>
         
     <?php
@@ -89,6 +97,10 @@
     }else {
     ?>
 
+    <!--  Interessante esta forma de fazer o action.
+Na prática, ele aponta pra esta página (exercicio07.php). Ou seja, quando clicar no botão,
+esta página será executada e o código PHP dela também.
+Gostei da solução. -->
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <p>
             <label for="nome">Produto:</label>
